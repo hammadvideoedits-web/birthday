@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Meri Biwi Zaria ❤️</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            title: ['"Playfair Display"', 'serif'],
+            love: ['"Great Vibes"', '"Dancing Script"', 'cursive'],
+            body: ['"Montserrat"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0c0a09;
+      color: #f5f5f4;
+      overflow-x: hidden;
+    }
+    .font-love { font-family: 'Great Vibes', cursive; }
+    .font-title { font-family: 'Playfair Display', serif; }
+    
+    /* Candle flame animation */
+    @keyframes flicker {
+      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+      50% { transform: scale(1.15, 1.25) rotate(2deg); opacity: 1; }
+    }
+    .flame-anim {
+      animation: flicker 0.6s infinite alternate ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    /* Floating hearts */
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.4); opacity: 0; }
+    }
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      animation: floatUp 3.5s linear forwards;
+    }
+  </style>
+</head>
+<body class="bg-stone-950 text-stone-100 min-h-screen selection:bg-rose-500 selection:text-white relative">
+
+  <!-- TOP AUDIO & NAV BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-stone-900/90 border-b border-rose-500/25 px-3 sm:px-6 py-2.5 shadow-lg">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2 text-sm">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('home')">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+        </span>
+        <div class="flex items-center gap-1.5 font-medium text-rose-200 text-xs sm:text-sm">
+          <span class="text-white font-bold text-sm tracking-wide">Zaria</span>
+          <span class="text-rose-400 font-love text-lg">❤️ Meri Biwi</span>
+        </div>
+      </div>
+
+      <!-- Quick Page Links -->
+      <nav class="hidden md:flex items-center gap-1.5 text-xs font-medium text-stone-300">
+        <button onclick="showPage('home')" id="nav-home" class="nav-btn px-3 py-1 rounded-full bg-rose-600 text-white font-semibold shadow-xs">🏠 Home</button>
+        <button onclick="showPage('gifts')" id="nav-gifts" class="nav-btn px-3 py-1 rounded-full text-amber-300 hover:text-white hover:bg-stone-800">🎁 3 Gifts Page</button>
+        <button onclick="showPage('cake')" id="nav-cake" class="nav-btn px-3 py-1 rounded-full hover:text-white hover:bg-stone-800">🎂 Cake</button>
+        <button onclick="showPage('memories')" id="nav-memories" class="nav-btn px-3 py-1 rounded-full hover:text-white hover:bg-stone-800">✈️ Long Distance</button>
+        <button onclick="showPage('reasons')" id="nav-reasons" class="nav-btn px-3 py-1 rounded-full hover:text-white hover:bg-stone-800">💖 16 Reasons</button>
+        <button onclick="showPage('vows')" id="nav-vows" class="nav-btn px-3 py-1 rounded-full hover:text-white hover:bg-stone-800">💍 7 Vows</button>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button onclick="openEnvelope()" class="px-2.5 py-1 text-xs rounded-full bg-rose-950/80 hover:bg-rose-900 border border-rose-500/40 text-rose-200 transition-colors flex items-center gap-1">
+          💌 Envelope
+        </button>
+        <button id="music-btn" onclick="toggleMusic()" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-800 hover:bg-stone-700 text-rose-300 text-xs font-medium border border-stone-700 transition-all">
+          <span id="music-icon">🎵</span>
+          <span id="music-text">Music OFF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 1. HOMEPAGE ==================== -->
+  <section id="page-home" class="page-view relative min-h-screen py-10 px-4 max-w-4xl mx-auto text-center">
+    <!-- Romantic Badges -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+      <span>👑 Forever My Wife • Long Distance Love</span>
+    </div>
+
+    <h1 class="font-title text-4xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-tight">
+      Salgirah Mubarak, <br/>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-amber-300 font-love text-6xl sm:text-8xl block mt-2">
+        Meri Biwi Zaria
+      </span>
+    </h1>
+
+    <p class="mt-4 text-base sm:text-lg text-rose-200/90 font-love text-2xl sm:text-3xl max-w-2xl mx-auto">
+      "Log kehte hain shaadi ke baad biwi banti hai... Lekin maine apne dil, apni duaon aur apni har saans mein tumhe pehle din se hi apni biwi maan liya hai."
+    </p>
+
+    <!-- Special Surprise Envelope Banner -->
+    <div onclick="openEnvelope()" class="cursor-pointer mt-6 p-4 sm:p-5 max-w-xl mx-auto rounded-2xl bg-gradient-to-r from-rose-900/60 via-pink-900/50 to-rose-900/60 border border-rose-400/50 shadow-lg hover:scale-102 transition-all flex items-center justify-between gap-3 text-left">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-full bg-rose-600 border border-amber-300 flex items-center justify-center text-xl shadow-md">
+          💌
+        </div>
+        <div>
+          <span class="inline-block text-[10px] uppercase font-bold tracking-widest text-amber-300">
+            Special Wax-Sealed Delivery
+          </span>
+          <h4 class="font-title text-base sm:text-lg font-bold text-white">
+            Open Surprise Envelope For Zaria
+          </h4>
+          <p class="text-xs text-rose-200/80 font-love text-sm">
+            Click to unwrap petals & play romantic message 🎵
+          </p>
+        </div>
+      </div>
+      <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/20 text-white">
+        Open 🎁
+      </span>
+    </div>
+
+    <!-- Live Milestone Clock -->
+    <div class="mt-8 p-5 sm:p-6 rounded-2xl bg-stone-900/80 border border-rose-500/30 max-w-2xl mx-auto shadow-lg">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-wide text-rose-300 mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-200">
+          📅 Pehli Mulaqat: <strong class="text-amber-300">28 Nov 2025, 5:30 PM</strong>
+        </span>
+        <span class="text-rose-400">Loving You Every Single Second</span>
+      </div>
+
+      <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+        <div class="p-3 rounded-xl bg-stone-950/70 border border-rose-500/20">
+          <span id="clock-days" class="font-title text-2xl sm:text-4xl font-bold text-rose-300 block">0</span>
+          <span class="text-[10px] sm:text-xs text-stone-400 uppercase">Days</span>
+        </div>
+        <div class="p-3 rounded-xl bg-stone-950/70 border border-rose-500/20">
+          <span id="clock-hours" class="font-title text-2xl sm:text-4xl font-bold text-rose-300 block">0</span>
+          <span class="text-[10px] sm:text-xs text-stone-400 uppercase">Hours</span>
+        </div>
+        <div class="p-3 rounded-xl bg-stone-950/70 border border-rose-500/20">
+          <span id="clock-minutes" class="font-title text-2xl sm:text-4xl font-bold text-rose-300 block">0</span>
+          <span class="text-[10px] sm:text-xs text-stone-400 uppercase">Minutes</span>
+        </div>
+        <div class="p-3 rounded-xl bg-stone-950/70 border border-rose-500/20">
+          <span id="clock-seconds" class="font-title text-2xl sm:text-4xl font-bold text-amber-400 block">0</span>
+          <span class="text-[10px] sm:text-xs text-stone-400 uppercase">Seconds</span>
+        </div>
+      </div>
+      <p class="text-xs sm:text-sm text-rose-300 mt-3 font-love text-lg">
+        "28 November 2025 ki shaam 5:30 baje se lekar aaj tak meri har saans par sirf Zaria ka naam hai..." ❤️
+      </p>
+    </div>
+
+    <!-- Real Story Card: 2 Calls & Long Distance Truth -->
+    <div class="mt-6 max-w-2xl mx-auto p-4 sm:p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30 text-left shadow-lg">
+      <div class="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-wider text-rose-300">
+        <span>✨</span>
+        <span>Humari Haqeeqi Mohabbat Ki Dastaan</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/20">
+          <span class="text-xs font-semibold text-rose-400 block mb-1">📞 Sirf 2 Dafa Call Par Baat:</span>
+          <p class="text-xs text-stone-300 leading-relaxed">
+            Pehli dafa sirf <strong class="text-white">5 minute</strong> baat hui thi... Aur doosri baar jab <strong class="text-white">mama ghar par nahi theen</strong> toh poore <strong class="text-amber-300">54 minute</strong> ki woh anmol call jiska ek ek lafz mere dil mein hamesha ke liye qaid hai!
+          </p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/20">
+          <span class="text-xs font-semibold text-rose-400 block mb-1">✈️ Long Distance & Purity:</span>
+          <p class="text-xs text-stone-300 leading-relaxed">
+            Hum dono door hain aur abhi sath mein koi photo nahi hai, lekin mere dil, meri rooh aur meri har dua ke andar tum meri pehli aur aakhri biwi ho.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Portal Cards (Separate Pages) -->
+    <div class="mt-12 text-center">
+      <span class="text-xs uppercase tracking-wider font-semibold text-rose-400">
+        Direct Rooms & Pages
+      </span>
+      <h3 class="font-title text-2xl sm:text-3xl font-bold text-white mt-1">
+        Khaas Rooms For My Wife Zaria
+      </h3>
+      <p class="text-xs sm:text-sm text-stone-400 mt-1 max-w-lg mx-auto">
+        Neeche diye gaye kisi bhi card par click karein alag web page kholne ke liye:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 mt-6 text-left">
+        <!-- 1. 3 Gifts Portal -->
+        <div onclick="showPage('gifts')" class="cursor-pointer p-5 rounded-2xl bg-gradient-to-br from-amber-500/20 via-stone-900 to-rose-950/40 border-2 border-amber-400/50 hover:border-amber-300 shadow-xl transition-all hover:scale-103">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-3xl p-2 rounded-xl bg-amber-500/20 border border-amber-400/30">🎁</span>
+            <span class="px-2.5 py-1 rounded-full bg-amber-500/30 text-amber-200 text-[11px] font-bold">
+              Open Separate Page →
+            </span>
+          </div>
+          <h4 class="font-title text-base sm:text-lg font-bold text-amber-200">
+            3 Mystery Surprise Gifts
+          </h4>
+          <p class="text-xs text-stone-300 mt-1.5">
+            Ring, Dil Ka Khat & Lifetime Coupons. Tap to unwrap on a separate page.
+          </p>
+        </div>
+
+        <!-- 2. Cake Room -->
+        <div onclick="showPage('cake')" class="cursor-pointer p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30 hover:border-rose-400 shadow-xl transition-all hover:scale-103">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-3xl p-2 rounded-xl bg-rose-500/20 border border-rose-400/30">🎂</span>
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px]">Open Page →</span>
+          </div>
+          <h4 class="font-title text-base sm:text-lg font-bold text-white">Birthday Cake & Candles</h4>
+          <p class="text-xs text-stone-300 mt-1.5">Light candles, blow them out with sparkles, and cut the cake.</p>
+        </div>
+
+        <!-- 3. Long Distance Story -->
+        <div onclick="showPage('memories')" class="cursor-pointer p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30 hover:border-rose-400 shadow-xl transition-all hover:scale-103">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-3xl p-2 rounded-xl bg-rose-500/20 border border-rose-400/30">✈️</span>
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px]">Open Page →</span>
+          </div>
+          <h4 class="font-title text-base sm:text-lg font-bold text-white">Long Distance & 54 Min Call</h4>
+          <p class="text-xs text-stone-300 mt-1.5">28 Nov 2025, pehli 5 min call, aur mama jab ghar nahi theen toh 54 min ki yaadein.</p>
+        </div>
+
+        <!-- 4. 16 Reasons -->
+        <div onclick="showPage('reasons')" class="cursor-pointer p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30 hover:border-rose-400 shadow-xl transition-all hover:scale-103">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-3xl p-2 rounded-xl bg-rose-500/20 border border-rose-400/30">💖</span>
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px]">Open Page →</span>
+          </div>
+          <h4 class="font-title text-base sm:text-lg font-bold text-white">16 Reasons Why You're My Wife</h4>
+          <p class="text-xs text-stone-300 mt-1.5">Kyun meri har saans aur taqdeer mein sirf Zaria ka naam likha hai.</p>
+        </div>
+
+        <!-- 5. 7 Sacred Vows -->
+        <div onclick="showPage('vows')" class="cursor-pointer p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30 hover:border-rose-400 shadow-xl transition-all hover:scale-103">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-3xl p-2 rounded-xl bg-rose-500/20 border border-rose-400/30">💍</span>
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px]">Open Page →</span>
+          </div>
+          <h4 class="font-title text-base sm:text-lg font-bold text-white">7 Sacred Vows to My Wife</h4>
+          <p class="text-xs text-stone-300 mt-1.5">Saat janam ke waaday, izzat, sabr aur dhoom dhaam se dulhan banaane ka wada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. DEDICATED GIFTS PAGE ==================== -->
+  <section id="page-gifts" class="page-view hidden min-h-screen py-8 px-4 max-w-5xl mx-auto">
+    <!-- Top Back Bar -->
+    <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-rose-500/20">
+      <button onclick="showPage('home')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-stone-900 hover:bg-stone-800 text-rose-300 hover:text-white border border-rose-500/30 text-xs sm:text-sm font-medium transition-all">
+        ← Wapis Homepage Par Jayein
+      </button>
+      <div class="flex items-center gap-2 text-xs text-amber-300 font-love text-lg">
+        <span>🎁 Dedicated Surprise Gift Room</span>
+      </div>
+    </div>
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-semibold uppercase tracking-wider mb-2">
+        <span>Special Birthday Packages • For Zaria</span>
+      </div>
+      <h2 class="font-title text-3xl sm:text-5xl text-white font-bold">
+        3 Mystery Surprise Gifts For You
+      </h2>
+      <p class="text-sm text-stone-300 mt-2 max-w-xl mx-auto">
+        Chahe hum dono long distance mein hon, yeh 3 khaas tohfe mere dil ki gehraiyon se sirf tumhare liye hain. Tap each box to unwrap!
+      </p>
+    </div>
+
+    <!-- 3 Big Gift Boxes -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Gift 1: Promise Ring -->
+      <div onclick="openGiftModal(1)" class="cursor-pointer p-6 rounded-2xl bg-gradient-to-b from-stone-900 to-rose-950/40 border-2 border-amber-500/40 hover:border-amber-300 shadow-xl text-center group transition-all hover:scale-103">
+        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">💍</div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-amber-400">Gift Box 01</span>
+        <h3 class="font-title text-xl font-bold text-white mt-1">The Forever Promise Ring</h3>
+        <p class="text-xs text-stone-300 mt-2">
+          "Biwi Banane Ka Waada" — A symbol of eternity across the distance.
+        </p>
+        <button class="mt-4 px-4 py-1.5 rounded-full bg-amber-500 text-stone-950 font-bold text-xs shadow-md">
+          Unwrap Box 1 ✨
+        </button>
+      </div>
+
+      <!-- Gift 2: Dil Ka Khat -->
+      <div onclick="openGiftModal(2)" class="cursor-pointer p-6 rounded-2xl bg-gradient-to-b from-stone-900 to-rose-950/40 border-2 border-rose-500/40 hover:border-rose-300 shadow-xl text-center group transition-all hover:scale-103">
+        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">💌</div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-rose-400">Gift Box 02</span>
+        <h3 class="font-title text-xl font-bold text-white mt-1">Khat-e-Mohabbat (Secret Letter)</h3>
+        <p class="text-xs text-stone-300 mt-2">
+          A deeply emotional love letter dedicated to my wife Zaria.
+        </p>
+        <button class="mt-4 px-4 py-1.5 rounded-full bg-rose-500 text-white font-bold text-xs shadow-md">
+          Read Secret Letter 📜
+        </button>
+      </div>
+
+      <!-- Gift 3: Love Coupons -->
+      <div onclick="openGiftModal(3)" class="cursor-pointer p-6 rounded-2xl bg-gradient-to-b from-stone-900 to-rose-950/40 border-2 border-pink-500/40 hover:border-pink-300 shadow-xl text-center group transition-all hover:scale-103">
+        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🎟️</div>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-pink-400">Gift Box 03</span>
+        <h3 class="font-title text-xl font-bold text-white mt-1">Biwi Sahiba Love Coupons</h3>
+        <p class="text-xs text-stone-300 mt-2">
+          6 redeemable vouchers (Instant Win Argument, Unlimited Calls, etc.).
+        </p>
+        <button class="mt-4 px-4 py-1.5 rounded-full bg-pink-600 text-white font-bold text-xs shadow-md">
+          View 6 Coupons 🎟️
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. CAKE CUTTING ROOM ==================== -->
+  <section id="page-cake" class="page-view hidden min-h-screen py-10 px-4 max-w-4xl mx-auto text-center">
+    <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-rose-500/20">
+      <button onclick="showPage('home')" class="px-4 py-2 rounded-full bg-stone-900 text-rose-300 text-xs font-medium border border-rose-500/30">
+        ← Wapis Main Page
+      </button>
+      <button onclick="showPage('gifts')" class="px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 to-rose-600 text-white text-xs font-semibold">
+        Open 3 Gifts Page 🎁
+      </button>
+    </div>
+
+    <h2 class="font-title text-3xl sm:text-5xl font-bold text-white">Make A Wish & Blow Candles</h2>
+    <p class="text-sm text-stone-300 mt-2 max-w-lg mx-auto">
+      Tap each candle to blow it out, then cut the birthday cake for Zaria!
+    </p>
+
+    <!-- Visual Birthday Cake -->
+    <div class="mt-12 max-w-sm mx-auto p-6 rounded-3xl bg-stone-900/90 border border-rose-500/30 shadow-2xl relative">
+      <!-- 5 Candles -->
+      <div class="flex justify-center gap-5 mb-3">
+        <div onclick="blowCandle(1)" id="candle-1" class="cursor-pointer flex flex-col items-center">
+          <div id="flame-1" class="w-3 h-5 rounded-full bg-amber-400 flame-anim shadow-lg shadow-amber-400"></div>
+          <div class="w-2.5 h-10 bg-gradient-to-b from-rose-300 to-rose-500 rounded-t-sm mt-0.5"></div>
+        </div>
+        <div onclick="blowCandle(2)" id="candle-2" class="cursor-pointer flex flex-col items-center">
+          <div id="flame-2" class="w-3 h-5 rounded-full bg-amber-400 flame-anim shadow-lg shadow-amber-400"></div>
+          <div class="w-2.5 h-10 bg-gradient-to-b from-amber-300 to-amber-500 rounded-t-sm mt-0.5"></div>
+        </div>
+        <div onclick="blowCandle(3)" id="candle-3" class="cursor-pointer flex flex-col items-center">
+          <div id="flame-3" class="w-3 h-5 rounded-full bg-amber-400 flame-anim shadow-lg shadow-amber-400"></div>
+          <div class="w-2.5 h-10 bg-gradient-to-b from-pink-300 to-pink-500 rounded-t-sm mt-0.5"></div>
+        </div>
+        <div onclick="blowCandle(4)" id="candle-4" class="cursor-pointer flex flex-col items-center">
+          <div id="flame-4" class="w-3 h-5 rounded-full bg-amber-400 flame-anim shadow-lg shadow-amber-400"></div>
+          <div class="w-2.5 h-10 bg-gradient-to-b from-rose-300 to-rose-500 rounded-t-sm mt-0.5"></div>
+        </div>
+        <div onclick="blowCandle(5)" id="candle-5" class="cursor-pointer flex flex-col items-center">
+          <div id="flame-5" class="w-3 h-5 rounded-full bg-amber-400 flame-anim shadow-lg shadow-amber-400"></div>
+          <div class="w-2.5 h-10 bg-gradient-to-b from-purple-300 to-purple-500 rounded-t-sm mt-0.5"></div>
+        </div>
+      </div>
+
+      <!-- Cake Tier 1 -->
+      <div class="w-48 h-16 mx-auto rounded-t-2xl bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300 border border-rose-400 shadow-md flex items-center justify-center text-rose-900 font-bold text-xs">
+        ❤️ ZARIA ❤️
+      </div>
+      <!-- Cake Tier 2 -->
+      <div class="w-64 h-20 mx-auto rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 border-2 border-rose-400 shadow-lg flex items-center justify-center text-white font-bold text-sm tracking-wider">
+        HAPPY BIRTHDAY MY WIFE
+      </div>
+
+      <!-- Action buttons -->
+      <div class="mt-8 flex flex-col gap-3">
+        <button onclick="blowAllCandles()" class="w-full py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs sm:text-sm shadow-md transition-all">
+          💨 Blow Out All Candles
+        </button>
+        <button onclick="cutCake()" class="w-full py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-pink-600 hover:from-amber-400 hover:to-pink-500 text-white font-semibold text-xs sm:text-sm shadow-md transition-all">
+          🎂 Cut Birthday Cake Slice
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. LONG DISTANCE MEMORIES ==================== -->
+  <section id="page-memories" class="page-view hidden min-h-screen py-10 px-4 max-w-5xl mx-auto">
+    <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-rose-500/20">
+      <button onclick="showPage('home')" class="px-4 py-2 rounded-full bg-stone-900 text-rose-300 text-xs font-medium border border-rose-500/30">
+        ← Wapis Main Page
+      </button>
+    </div>
+
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/40 text-rose-200 text-xs font-semibold uppercase tracking-wider mb-2">
+        <span>Long Distance Love Story • Two Cities, One Heartbeat</span>
+      </div>
+      <h2 class="font-title text-3xl sm:text-5xl font-bold text-white">Moments With My Forever Girl</h2>
+      <p class="text-sm text-stone-300 mt-2 max-w-2xl mx-auto">
+        Hum dono long distance mein hain aur humari sath koi photo nahi hai... Humne call bhi sirf 2 dafa ki hai: pehli dafa 5 minute aur ek dafa jab mama ghar nahi theen toh 54 minute ki woh anmol call! Lekin mere dil ka har kona sirf Zaria ke naam se mehka hua hai.
+      </p>
+    </div>
+
+    <!-- Polaroids Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">28 Nov 2025 • 5:30 PM</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">28 Nov 2025 — 5:30 PM (The Beginning)</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Theek shaam 5:30 baje humari mulaqat hui. Woh lamha mere naseeb ka sabse bada tohfa ban gaya jisne meri zindagi mein Zaria ka noor bhar diya.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">First Time On Call (5 Mins)</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">Pehli Call — 5 Minutes of Pure Magic</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Humne kabhi zyada call nahi ki... Pehli baar sirf 5 minute ke liye baat hui thi. Woh 5 minute ki aawaz aur halki si ghbrahat aaj bhi kaano mein goonjti hai.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">When Mama Was Away (54 Mins)</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">Woh 54 Minute Ki Anmol Call ❤️</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Ek dafa jab tumhari mama ghar par nahi theen, toh poore 54 minute humari call par baat hui thi. Woh 54 minute mere jeevan ka sabse keemti lamha hain.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">Dilon Ka Rishta</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">No Photos Together, Yet Full of Love</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Hum long distance mein hain aur humari sath koi tasveer nahi hai, lekin mere dil ki har deewar par Zaria ka noorani chehra basa hua hai.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">Two Cities, One Soul</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">Under The Same Sky, Waiting For You</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Shehron ke darmiyan kitne bhi kilometer hon, jab bhi aasmaan ko dekhta hoon toh sukoon milta hai ke meri biwi bhi isi aasmaan ke saaye mein hai.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-900 border border-rose-500/30 shadow-lg">
+        <div class="w-full h-44 rounded-xl overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" alt="Memory">
+        </div>
+        <span class="text-[10px] font-bold text-amber-400">Dulhan Banane Ka Waada</span>
+        <h4 class="font-title font-bold text-white text-base mt-1">Our Future Home As Husband & Wife</h4>
+        <p class="text-xs text-stone-300 mt-1.5 leading-relaxed">
+          Woh din bohot jald aayega jab yeh dooriyan mit jayengi, na koi phone call ka intezar hoga, sirf tum aur main ek saath apna aashiyana sajayein ge.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. 16 REASONS ==================== -->
+  <section id="page-reasons" class="page-view hidden min-h-screen py-10 px-4 max-w-5xl mx-auto">
+    <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-rose-500/20">
+      <button onclick="showPage('home')" class="px-4 py-2 rounded-full bg-stone-900 text-rose-300 text-xs font-medium border border-rose-500/30">
+        ← Wapis Main Page
+      </button>
+    </div>
+
+    <div class="text-center mb-10">
+      <h2 class="font-title text-3xl sm:text-5xl font-bold text-white">16 Reasons Why You're My Wife Forever</h2>
+      <p class="text-sm text-stone-300 mt-2 max-w-lg mx-auto">
+        Kyun meri har saans aur har dua sirf Zaria ke naam se shuru hoti hai:
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">📞</span>
+        <p class="text-xs sm:text-sm text-stone-200">Woh 54 minute ki anmol call jab tumhari mama ghar nahi theen aur maine pehli baar tumhein dil khol kar suna tha.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">✨</span>
+        <p class="text-xs sm:text-sm text-stone-200">Pehli call ke woh 5 minute jab hum dono ke dilon ki dharkan tez thi aur lafz kam par gaye thay.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">📅</span>
+        <p class="text-xs sm:text-sm text-stone-200">28 November 2025 ki shaam 5:30 baje ka woh lamha jisne meri taqdeer badal di.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">💎</span>
+        <p class="text-xs sm:text-sm text-stone-200">How loyal, pure and respectful our love is even without everyday calls.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">💍</span>
+        <p class="text-xs sm:text-sm text-stone-200">The way you believe in us and our future together as husband & wife.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">🖼️</span>
+        <p class="text-xs sm:text-sm text-stone-200">Even with zero photos together, your face is carved inside my heart and mind.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">🌸</span>
+        <p class="text-xs sm:text-sm text-stone-200">Your pure, modest heart that is reserved only for me in this noisy world.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">🌙</span>
+        <p class="text-xs sm:text-sm text-stone-200">The comforting feeling that no matter how far we are, our souls are tied forever.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">🩺</span>
+        <p class="text-xs sm:text-sm text-stone-200">How you worry about my health and safety even with brief messages.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">🎶</span>
+        <p class="text-xs sm:text-sm text-stone-200">Your sweet voice that made those 54 minutes feel like heavenly magic.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">✈️</span>
+        <p class="text-xs sm:text-sm text-stone-200">The promise in your heart that one day we will never have distance between us.</p>
+      </div>
+      <div class="p-4 rounded-2xl bg-stone-900/90 border border-rose-500/30 flex items-start gap-3">
+        <span class="text-xl">👑</span>
+        <p class="text-xs sm:text-sm text-stone-200">Because you make me strive to be the most responsible and loving husband in the world.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. 7 SACRED VOWS ==================== -->
+  <section id="page-vows" class="page-view hidden min-h-screen py-10 px-4 max-w-4xl mx-auto">
+    <div class="flex items-center justify-between gap-3 mb-8 pb-4 border-b border-rose-500/20">
+      <button onclick="showPage('home')" class="px-4 py-2 rounded-full bg-stone-900 text-rose-300 text-xs font-medium border border-rose-500/30">
+        ← Wapis Main Page
+      </button>
+    </div>
+
+    <div class="text-center mb-10">
+      <h2 class="font-title text-3xl sm:text-5xl font-bold text-white">Saat Pavitr Waaday (7 Sacred Vows)</h2>
+      <p class="text-sm text-stone-300 mt-2 max-w-lg mx-auto">
+        Dedicated from Hammad to his destined wife Zaria:
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 01 • Hamesha Ka Saath</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Forever By Your Side</h4>
+        <p class="text-xs text-stone-300 mt-1">Zindagi ke har dukh sukh mein tumhara haath thaam kar chalunga aur har mod par tumhara sabse mazboot sahara banoonga.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 02 • Dooriyan Mitaane Ka Sabr</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Patience Through Long Distance</h4>
+        <p class="text-xs text-stone-300 mt-1">Beshak humari calls bohot kam hoti hain, par mera sabr aur intezar sirf aur sirf tumhare liye hai.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 03 • Bila-Shart Mohabbat</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Unconditional Love</h4>
+        <p class="text-xs text-stone-300 mt-1">Chahe waqt kaisa bhi ho, meri mohabbat tumhare liye har din pehle se zyada gehri aur pakeeza hogi.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 04 • Tumhari Muskaan Ki Hifazat</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Protecting Your Smile</h4>
+        <p class="text-xs text-stone-300 mt-1">Meri har koshish yeh hogi ke tumhare chehre par hamesha woh chaand jaisi masoom muskaan chamakti rahe.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 05 • Har Lamhe Ki Qadar</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Valuing Every Second</h4>
+        <p class="text-xs text-stone-300 mt-1">Jaise woh 54 minute ki call anmol thi, waise hi aane wali poori zindagi ka har pal tumhare naam karta hoon.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 06 • Dhoom Dhaam Se Dulhan Banana</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Official Nikah & Ending Distance</h4>
+        <p class="text-xs text-stone-300 mt-1">Rab ke fazl se sab ke saamne tumhe izzat aur shaan se apni biwi bana kar apne ghar le kar aaunga.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-stone-900/90 border border-rose-500/30">
+        <span class="text-xs font-bold text-amber-400">Waada 07 • Aakhri Saans Tak Wafa</span>
+        <h4 class="font-title text-base font-bold text-white mt-1">Janat Tak Ka Hamsafar</h4>
+        <p class="text-xs text-stone-300 mt-1">Yeh rishta sirf is duniya tak nahi, aakhirat aur jannat ke darwazon tak tum hi meri akeli biwi rahogi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== POPUP MODAL FOR GIFTS ==================== -->
+  <div id="gift-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-stone-900 border border-rose-500/40 rounded-3xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeGiftModal()" class="absolute top-4 right-4 text-stone-400 hover:text-white text-xl">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ==================== POPUP ENVELOPE MODAL ==================== -->
+  <div id="envelope-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-stone-900 to-rose-950/80 border-2 border-rose-400/50 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative">
+      <button onclick="closeEnvelope()" class="absolute top-4 right-4 text-stone-400 hover:text-white text-xl">✕</button>
+      <div class="w-16 h-16 mx-auto rounded-full bg-rose-600 border-2 border-amber-300 flex items-center justify-center text-3xl shadow-lg mb-4">
+        💌
+      </div>
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">Royal Wax-Sealed Delivery</span>
+      <h3 class="font-title text-2xl font-bold text-white mt-1">For My Destined Wife Zaria</h3>
+      <p class="text-xs text-rose-200 mt-2 font-love text-lg leading-relaxed">
+        "28 November 2025 ki shaam se lekar aakhri saans tak... meri har dua aur har saans mein sirf tumhara naam hai."
+      </p>
+      <div class="mt-6 flex flex-col gap-2.5">
+        <button onclick="closeEnvelope(); showPage('gifts');" class="w-full py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold text-xs shadow-md">
+          Open 3 Surprise Gifts 🎁
+        </button>
+        <button onclick="closeEnvelope(); playSparkle();" class="w-full py-2.5 rounded-full bg-stone-800 text-rose-300 text-xs">
+          Explore Website With Music 🎶
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-rose-500/20 text-center text-xs text-stone-400 mt-20">
+    <div class="flex justify-center mb-4">
+      <button onclick="sendVirtualHugs()" class="px-5 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs shadow-lg transition-all hover:scale-105">
+        💋 Send 1000 Kisses & Tight Hugs to Zaria
+      </button>
+    </div>
+    <p>Crafted with endless love & pure intentions by <strong class="text-white">Hammad</strong> for his forever wife <strong class="text-rose-400">Zaria</strong> ❤️</p>
+    <p class="text-[11px] text-stone-500 mt-1">28 November 2025 • Two Cities, One Heartbeat</p>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // 1. Live Countdown from 28 Nov 2025, 5:30 PM
+    const meetingDate = new Date('2025-11-28T17:30:00').getTime();
+
+    function updateClock() {
+      const now = new Date().getTime();
+      const diff = Math.abs(now - meetingDate);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('clock-days').innerText = days;
+      document.getElementById('clock-hours').innerText = hours;
+      document.getElementById('clock-minutes').innerText = minutes;
+      document.getElementById('clock-seconds').innerText = seconds;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 2. Multi-Page Switcher
+    function showPage(pageId) {
+      document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // update nav highlight
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-rose-600', 'text-white', 'font-semibold');
+      });
+      const activeNav = document.getElementById('nav-' + pageId);
+      if (activeNav) {
+        activeNav.classList.add('bg-rose-600', 'text-white', 'font-semibold');
+      }
+    }
+
+    // 3. Web Audio Synthesizer (Romantic Music Player)
+    let audioCtx = null;
+    let isPlaying = false;
+    let audioTimer = null;
+    const notes = [261.63, 329.63, 392.00, 523.25, 293.66, 349.23, 440.00, 587.33, 246.94, 329.63, 392.00, 493.88];
+
+    function toggleMusic() {
+      if (isPlaying) {
+        stopMusic();
+      } else {
+        startMusic();
+      }
+    }
+
+    function startMusic() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        isPlaying = true;
+        document.getElementById('music-text').innerText = "Music ON 🎶";
+        document.getElementById('music-btn').classList.add('border-rose-500', 'text-white');
+
+        let step = 0;
+        function playNote() {
+          if (!isPlaying || !audioCtx) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+
+          gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.9);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 1.0);
+
+          step++;
+          audioTimer = setTimeout(playNote, 450);
+        }
+        playNote();
+      } catch(e) {
+        console.log(e);
+      }
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      if (audioTimer) clearTimeout(audioTimer);
+      if (audioCtx) audioCtx.close();
+      document.getElementById('music-text').innerText = "Music OFF";
+      document.getElementById('music-btn').classList.remove('border-rose-500', 'text-white');
+    }
+
+    function playSparkle() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+      }
+    }
+
+    // 4. Cake Candles Logic
+    function blowCandle(id) {
+      const flame = document.getElementById('flame-' + id);
+      if (flame) {
+        flame.style.display = 'none';
+        playSparkle();
+      }
+    }
+
+    function blowAllCandles() {
+      for (let i = 1; i <= 5; i++) {
+        const f = document.getElementById('flame-' + i);
+        if (f) f.style.display = 'none';
+      }
+      playSparkle();
+      alert("Happy Birthday Meri Biwi Zaria! Saari mombattiyan bujh gayin, rab tumhari har dua qubool farmaye! ❤️");
+    }
+
+    function cutCake() {
+      playSparkle();
+      alert("🍰 Mubarak ho! Pehla meetha slice meri pyari biwi Zaria ke naam!");
+    }
+
+    // 5. Gifts Popup Modals
+    function openGiftModal(num) {
+      const modal = document.getElementById('gift-modal');
+      const content = document.getElementById('modal-content');
+      playSparkle();
+
+      if (num === 1) {
+        content.innerHTML = `
+          <div class="text-center">
+            <div class="text-6xl mb-3 animate-bounce">💍</div>
+            <h3 class="font-title text-2xl font-bold text-amber-300">The Forever Promise Ring</h3>
+            <p class="text-xs uppercase tracking-widest text-stone-400 mt-1">Biwi Banane Ka Pakka Waada</p>
+            <div class="my-6 p-4 rounded-2xl bg-stone-950/80 border border-amber-500/30 text-xs sm:text-sm text-stone-300 leading-relaxed text-left">
+              "Zaria, yeh angoothi sirf ek tohfa nahi, balki meri rooh ka waada hai. Chahe aaj hum kitne bhi kilometer door hon, bohot jald main rab ke fazl se sabke saamne tumhare haath mein shadi ki angoothi pehnaunga aur dhoom dhaam se tumhe apni dulhan bana kar apne ghar le aaunga!"
+            </div>
+            <button onclick="closeGiftModal()" class="px-6 py-2 rounded-full bg-amber-500 text-stone-950 font-bold text-xs">Qubool Hai ❤️</button>
+          </div>
+        `;
+      } else if (num === 2) {
+        content.innerHTML = `
+          <div class="text-left">
+            <div class="text-center text-5xl mb-2">💌</div>
+            <h3 class="font-title text-2xl font-bold text-rose-300 text-center">Khat-e-Mohabbat (Secret Letter)</h3>
+            <div class="my-5 p-4 rounded-2xl bg-stone-950/90 border border-rose-500/30 text-xs sm:text-sm text-stone-200 leading-relaxed max-h-72 overflow-y-auto space-y-3 font-sans">
+              <p><strong>Meri sabse pyari biwi Zaria,</strong></p>
+              <p>Aaj tumhara janamdin hai aur main rab ka laakh laakh shukar ada karta hoon ke usne mujhe tum jaisi pakeeza, masoom aur be-misaal larki ka hamsafar banaya.</p>
+              <p>28 November 2025 ko theek shaam 5:30 baje jab tumse pehli mulaqat hui thi, usi pal mere dil ne faisla kar liya tha ke tum hi meri aakhri manzil aur meri hamsafar ho.</p>
+              <p>Hum dono long distance mein hain, aur humne kabhi zyada call bhi nahi ki. Humari sirf do dafa call par baat hui hai: pehli dafa pehli mulaqat ke baad sirf 5 minute ke liye, aur doosri dafa jab tumhari mama ghar par nahi theen toh poore 54 minute ki woh anmol call... Zaria, sach kahoon toh woh 54 minute meri zindagi ke sabse haseen aur anmol 54 minute thay, jisme maine tumhari pyari aawaz ka ek ek lafz apne dil mein hamesha ke liye mehfooz kar liya tha.</p>
+              <p>Humari abhi sath mein koi photo nahi hai kyunki faasle hain, lekin duniya tasweerein dekhti hai aur maine tumhe apne dil, apni rooh aur apni har dua ke andar apni pehli aur aakhri biwi maan rakha hai.</p>
+              <p>Main rab se har din yahi dua karta hoon ke yeh dooriyan bohot jald khatam hon aur main sab ke saamne tumhe dhoom dhaam se apni dulhan bana kar apne ghar le aaun. I love you to the moon and beyond, my forever wife Zaria. Happy Birthday, my queen! ❤️</p>
+            </div>
+            <div class="text-center">
+              <button onclick="closeGiftModal()" class="px-6 py-2 rounded-full bg-rose-600 text-white font-bold text-xs">Close Letter</button>
+            </div>
+          </div>
+        `;
+      } else if (num === 3) {
+        content.innerHTML = `
+          <div>
+            <h3 class="font-title text-xl font-bold text-pink-300 text-center mb-3">6 Biwi Sahiba Love Coupons</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left max-h-72 overflow-y-auto pr-1">
+              <div class="p-3 rounded-xl bg-pink-950/40 border border-pink-500/30">
+                <span class="text-xs font-bold text-white block">🎟️ Instant Win Argument Pass</span>
+                <p class="text-[11px] text-stone-300 mt-0.5">Show this whenever we argue — you are always right!</p>
+              </div>
+              <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30">
+                <span class="text-xs font-bold text-white block">📞 Unlimited Call Pass</span>
+                <p class="text-[11px] text-stone-300 mt-0.5">Valid anytime across long distance. Picked up on 1st ring!</p>
+              </div>
+              <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30">
+                <span class="text-xs font-bold text-white block">👑 Queen Treatment For Life</span>
+                <p class="text-[11px] text-stone-300 mt-0.5">Undisputed queen of our home and hearts forever.</p>
+              </div>
+              <div class="p-3 rounded-xl bg-rose-950/40 border border-rose-500/30">
+                <span class="text-xs font-bold text-white block">🍦 Apology & Ice Cream Voucher</span>
+                <p class="text-[11px] text-stone-300 mt-0.5">Guarantees sincere apology & your favorite flavor.</p>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <button onclick="closeGiftModal()" class="px-6 py-2 rounded-full bg-pink-600 text-white font-bold text-xs">Done</button>
+            </div>
+          </div>
+        `;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeGiftModal() {
+      document.getElementById('gift-modal').classList.add('hidden');
+    }
+
+    // 6. Envelope Modal
+    function openEnvelope() {
+      playSparkle();
+      document.getElementById('envelope-modal').classList.remove('hidden');
+    }
+    function closeEnvelope() {
+      document.getElementById('envelope-modal').classList.add('hidden');
+    }
+
+    // 7. Virtual Hugs Floating Hearts
+    function sendVirtualHugs() {
+      playSparkle();
+      for (let i = 0; i < 25; i++) {
+        const h = document.createElement('div');
+        h.className = 'floating-heart text-2xl sm:text-4xl';
+        h.innerText = ['❤️', '💖', '💋', '💕', '🥰'][Math.floor(Math.random() * 5)];
+        h.style.left = Math.random() * 95 + 'vw';
+        h.style.bottom = '10px';
+        h.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 4000);
+      }
+      alert("Hammad ki taraf se Zaria ko 1000 Kisses & Tight Hugs bheji gayi hain! 💋❤️");
+    }
+  </script>
+</body>
+</html>

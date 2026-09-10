@@ -1,0 +1,6 @@
+{
+  "name": "Birthday Surprise For My Wife",
+  "description": "A deeply romantic birthday surprise website with interactive gifts, love letters, memory gallery, cake cutting, and personalized love vows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
